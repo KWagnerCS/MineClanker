@@ -27,7 +27,7 @@ A **client-side** Minecraft Fabric mod that allows you to ask questions to GPT-5
 2. Create an account and get an API key
 3. **Important**: You can now set the API key in-game using `/setapikey <key>`
 
-### 2. Build the Mod
+### 2. Build the Mod (Or just download it in releases)
 
 ```bash
 ./gradlew build
