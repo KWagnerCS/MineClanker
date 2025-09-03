@@ -39,6 +39,17 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
+	// OpenAI Java SDK - Official, maintained, and optimized
+	implementation "com.theokanning.openai-gpt3-java:service:0.18.2"
+	
+	// HTTP client - OkHttp is still the best choice for performance
+	implementation "com.squareup.okhttp3:okhttp:4.12.0"
+	
+	// JSON handling - Jackson is more performant than Gson for large responses
+	implementation "com.fasterxml.jackson.core:jackson-databind:2.15.2"
+	
+	// Async utilities for better performance
+	implementation "org.jetbrains:annotations:24.0.1"
 }
 
 processResources {

@@ -1,29 +1,29 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
+	"id": "mineclanker",
 	"version": "${version}",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "MineClanker",
+	"description": "A client-side Minecraft mod that allows you to ask questions to GPT-5 nano via chat commands!",
 	"authors": [
-		"Me!"
+		"Kevin Wagner"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/KWagnerCS/MineClanker",
+		"sources": "https://github.com/KWagnerCS/MineClanker"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/modid/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.ExampleMod"
+			"com.example.MineClankerMod"
 		],
 		"client": [
-			"com.example.ExampleModClient"
+			"com.example.MineClankerModClient"
 		]
 	},
 	"mixins": [
-		"modid.mixins.json",
+		"mineclanker.mixins.json",
 		{
 			"config": "modid.client.mixins.json",
 			"environment": "client"
