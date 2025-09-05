@@ -9,7 +9,7 @@ A **client-side** Minecraft Fabric mod that allows you to ask questions to GPT-5
 - In-game API key management with `/setapikey`, `/removeapikey`, and `/apikeystatus`
 - **Client-side only** - works on any server without server installation
 - **Persistent configuration** - all settings saved and persist between game sessions
-- **Official OpenAI Java SDK 3.0.0** - latest sdk
+- **Official OpenAI Java SDK 3.4.1**
 - **GPT-5 nano features** - verbosity and reasoning control
 - Asynchronous processing to avoid blocking the game
 - Configurable API settings
