@@ -1,8 +1,8 @@
-package com.example;
+package com.ftkevon.mineclanker;
 
-import com.example.commands.AskCommand;
-import com.example.commands.ApiKeyCommand;
-import com.example.services.LLMService;
+import com.ftkevon.mineclanker.commands.AskCommand;
+import com.ftkevon.mineclanker.commands.ApiKeyCommand;
+import com.ftkevon.mineclanker.services.LLMService;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import org.slf4j.Logger;

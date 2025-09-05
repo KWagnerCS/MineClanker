@@ -1,6 +1,7 @@
 plugins {
 	id 'fabric-loom' version "${loom_version}"
 	id 'maven-publish'
+	// id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 version = project.mod_version
@@ -30,27 +31,69 @@ loom {
 
 }
 
-dependencies {
-	// To change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	
-	// OpenAI Java SDK - Official, maintained, and optimized
-	implementation "com.theokanning.openai-gpt3-java:service:0.18.2"
-	
-	// HTTP client - OkHttp is still the best choice for performance
-	implementation "com.squareup.okhttp3:okhttp:4.12.0"
-	
-	// JSON handling - Jackson is more performant than Gson for large responses
-	implementation "com.fasterxml.jackson.core:jackson-databind:2.15.2"
-	
-	// Async utilities for better performance
-	implementation "org.jetbrains:annotations:24.0.1"
+configurations {
+    includeResolvable {
+        canBeResolved = true
+        canBeConsumed = false
+        extendsFrom(include)
+    }
 }
+
+dependencies {
+    // === Fabric basics ===
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    // === OpenAI SDK ===
+    modImplementation("com.openai:openai-java:3.4.1")
+    include("com.openai:openai-java:3.4.1")
+
+    // === OkHttp / Okio / Retrofit (needed by OpenAI) ===
+    modImplementation("com.squareup.okhttp3:okhttp:4.11.0")
+    include("com.squareup.okhttp3:okhttp:4.11.0")
+
+    modImplementation("com.squareup.okio:okio:3.2.0")
+    include("com.squareup.okio:okio:3.2.0")
+
+    modImplementation("com.squareup.retrofit2:retrofit:2.9.0")
+    include("com.squareup.retrofit2:retrofit:2.9.0")
+
+    // === Jackson (for config + OpenAI internally) ===
+    modImplementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+    include("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+
+    modImplementation("com.fasterxml.jackson.core:jackson-core:2.15.2")
+    include("com.fasterxml.jackson.core:jackson-core:2.15.2")
+
+    modImplementation("com.fasterxml.jackson.core:jackson-annotations:2.15.2")
+    include("com.fasterxml.jackson.core:jackson-annotations:2.15.2")
+}
+
+tasks.withType(Jar).configureEach {
+    from {
+        configurations.includeResolvable.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+	// Ignore duplicate META-INF entries
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+
+// shadowJar {
+// 	zip64 true
+// 	relocate "com.openai", "com.ftkevon.mineclanker.shadow.com.openai"
+// 	relocate "com.fasterxml.jackson", "com.ftkevon.mineclanker.shadow.com.fasterxml.jackson"
+
+// 	exclude 'net/fabricmc/**'
+// 	// minimize()
+// }
+
+// remapJar {
+// 	dependsOn shadowJar
+// 	inputFile.set(shadowJar.archiveFile)
+// }
 
 processResources {
 	inputs.property "version", project.version
@@ -78,7 +121,7 @@ jar {
 	inputs.property "archivesName", project.base.archivesName
 
 	from("LICENSE") {
-		rename { "${it}_${inputs.properties.archivesName}"}
+		rename { "${it}_${inputs.properties.version}"}
 	}
 }
 

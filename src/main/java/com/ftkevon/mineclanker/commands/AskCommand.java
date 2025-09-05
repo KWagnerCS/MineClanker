@@ -1,6 +1,6 @@
-package com.example.commands;
+package com.ftkevon.mineclanker.commands;
 
-import com.example.services.LLMService;
+import com.ftkevon.mineclanker.services.LLMService;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.minecraft.server.command.ServerCommandSource;

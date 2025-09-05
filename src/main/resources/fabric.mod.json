@@ -16,19 +16,12 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.MineClankerMod"
+			"com.ftkevon.mineclanker.MineClankerMod"
 		],
 		"client": [
 			"com.example.MineClankerModClient"
 		]
 	},
-	"mixins": [
-		"mineclanker.mixins.json",
-		{
-			"config": "modid.client.mixins.json",
-			"environment": "client"
-		}
-	],
 	"depends": {
 		"fabricloader": ">=0.16.14",
 		"minecraft": "~1.21.8",
